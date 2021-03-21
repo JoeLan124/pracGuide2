@@ -37,16 +37,20 @@ const styles = StyleSheet.create({
 
     inputcontainer: {
         //placeholder: 'coursegoal',
+        flexDirection: 'column',
         borderBottomColor: 'black',
         borderWidth: 1,
-        padding: 10,
+        paddingTop: 10,
         margin: 20,
         width: '80%'
 
     },
 
     buttonAdd: {
-        padding: 30
+        padding: 30,
+
+
+
     },
 
 
