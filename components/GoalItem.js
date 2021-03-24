@@ -20,12 +20,15 @@ export default GoalItem;
 const styles = StyleSheet.create(
     {
         listItem: {
+            flexDirection: 'column',
+
+            width: '100%',
             padding: 10,
-            marginVertical: 20,
+            margin: 10,
             backgroundColor: '#ccc',
             borderColor: 'black',
             borderWidth: 1,
-            marginHorizontal: 20,
+            //marginHorizontal: 20,
             height: 50
         }
 

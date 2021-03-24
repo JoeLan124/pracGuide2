@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
+import { StyleSheet, View, Button, FlatList } from 'react-native';
 
 import GoalItem from './components/GoalItem';
 import GoalInput from './components/GoalInput';
@@ -8,6 +8,7 @@ import GoalInput from './components/GoalInput';
 export default function App() {
 
   const [courseGoals, setCouseGoals] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false);
 
   const addGoalHandler = (goalTitle) => {
     //setCouseGoals([...courseGoals, enteredGoal]);
@@ -15,7 +16,9 @@ export default function App() {
       ...currentGoals,
       { id: Math.random().toString(), value: goalTitle }
     ]);
+    setIsAddMode(false);
   }
+  console.log(courseGoals);
 
   const removeGoalHandler = goalId => {
     setCouseGoals(currentGoals => {
@@ -24,10 +27,19 @@ export default function App() {
     })
   }
 
+  const cancelGoalAdditionHandler = () => {
+    setIsAddMode(false);
+  };
+
   return (
 
     <View style={styles.screen}>
-      <GoalInput onAddGoal={addGoalHandler} />
+      <Button title={"add new Goal"} onPress={() => setIsAddMode(true)} />
+      <GoalInput
+        visible={isAddMode}
+        onAddGoal={addGoalHandler}
+        onCancel={cancelGoalAdditionHandler}
+      />
 
       <FlatList
         keyExtractor={(item, index) => item.id}
@@ -42,15 +54,16 @@ export default function App() {
       />
 
     </View >
+
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
     paddingHorizontal: 20,
-    paddingTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    paddingTop: 120,
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
 
 

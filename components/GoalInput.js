@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Modal } from 'react-native';
 
 const GoalInput = props => {
 
@@ -12,21 +12,39 @@ const GoalInput = props => {
 
     };
 
+    const addGoalHandler = () => {
+        props.onAddGoal(enteredGoal);
+        setEnteredGoal('');
+    };
+
     return (
+        <Modal visible={props.visible} animationType={'slide'}>
+            <View style={styles.inputcontainer}>
+                <TextInput
+                    placeholder="CourseGoal"
+                    style={styles.input}
+                    onChangeText={goalInputHandler}
+                    value={enteredGoal} />
+
+                <View style={styles.buttonContainer}>
+
+                    <View style={styles.buttonCancel}>
+                        <Button title="CANCEL" color="red" onPress={props.onCancel} />
+                    </View>
+
+                    <View style={styles.buttonAdd}>
+                        <Button title="ADD"
+                            //onPress={() => props.onAddGoal(enteredGoal)}
+                            onPress={addGoalHandler}
+                        />
+                    </View>
+
+                </View>
+
+            </View>
 
 
-        <View >
-
-            <TextInput style={styles.inputcontainer}
-                onChangeText={goalInputHandler}
-                value={enteredGoal} />
-
-            <Button title="ADD"
-                //onPress={() => props.onAddGoal(enteredGoal)}
-                onPress={props.onAddGoal.bind(this, enteredGoal)}
-                style={styles.buttonAdd} />
-
-        </View>
+        </Modal>
     );
 };
 
@@ -36,22 +54,42 @@ export default GoalInput;
 const styles = StyleSheet.create({
 
     inputcontainer: {
-        //placeholder: 'coursegoal',
-        flexDirection: 'column',
-        borderBottomColor: 'black',
-        borderWidth: 1,
-        paddingTop: 10,
-        margin: 20,
-        width: '80%'
+
+        flex: 1,
+        // flexDirection: 'column',
+        justifyContent: 'center',
+        margin: 30
+        //alignItems: 'center'
 
     },
+    input: {
+
+        width: '100%',
+        borderColor: 'black',
+        borderWidth: 1,
+        padding: 10,
+        marginBottom: 10
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        //alignItems: 'center'
+
+    },
+
+
 
     buttonAdd: {
-        padding: 30,
-
-
+        // padding: 50,
+        margin: 10
 
     },
+    buttonCancel: {
+        // flexDirection: 'column',
+        // justifyContent: 'space-evenly',
+        margin: 10
+
+    }
 
 
 
